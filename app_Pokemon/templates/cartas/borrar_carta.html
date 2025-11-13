@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">🗑️ Borrar Carta</h4>
+            </div>
+            <div class="card-body text-center">
+                <h5>¿Estás seguro de que quieres borrar esta carta?</h5>
+                <p class="lead"><strong>{{ carta.nombre_carta }}</strong></p>
+                <p>Set: {{ carta.set_expansion.nombre_set }}</p>
+                <p>Número: {{ carta.num_carta_en_set }}</p>
+                <p>Tipo: {{ carta.tipo_pokemon }}</p>
+                <p>Valor: ${{ carta.valor_mercado_usd }}</p>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{% url 'ver_carta' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Sí, Borrar Carta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

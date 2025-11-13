@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">📋 Agregar Nuevo Detalle</h4>
+            </div>
+            <div class="card-body">
+                {% if error_message %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error_message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Pedido *</label>
+                            <select class="form-select" name="pedido" required>
+                                <option value="">Selecciona un pedido...</option>
+                                {% for pedido in pedidos %}
+                                <option value="{{ pedido.id }}" 
+                                        {% if form_data.pedido == pedido.id|stringformat:"i" %}selected{% endif %}>
+                                    Pedido #{{ pedido.id }} - {{ pedido.cliente.nombre_cliente }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Producto *</label>
+                            <select class="form-select" name="producto" required>
+                                <option value="">Selecciona un producto...</option>
+                                {% for producto in productos %}
+                                <option value="{{ producto.id }}" 
+                                        {% if form_data.producto == producto.id|stringformat:"i" %}selected{% endif %}>
+                                    {{ producto.nombre_producto }} - ${{ producto.precio }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Cantidad *</label>
+                            <input type="number" class="form-control" name="cantidad" 
+                                   value="{% if form_data %}{{ form_data.cantidad }}{% else %}1{% endif %}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Precio Unitario *</label>
+                            <input type="number" step="0.01" class="form-control" name="precio_unitario" 
+                                   value="{% if form_data %}{{ form_data.precio_unitario }}{% else %}0.00{% endif %}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Descuento Aplicado (%)</label>
+                            <input type="number" step="0.01" class="form-control" name="descuento_aplicado" 
+                                   value="{% if form_data %}{{ form_data.descuento_aplicado }}{% else %}0.00{% endif %}">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Observación del Item</label>
+                        <textarea class="form-control" name="observacion_item" rows="3">{% if form_data %}{{ form_data.observacion_item }}{% endif %}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="es_item_digital" 
+                                   id="es_item_digital" {% if form_data.es_item_digital %}checked{% endif %}>
+                            <label class="form-check-label" for="es_item_digital">
+                                ¿Es item digital?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'ver_detalle' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-info text-white">Guardar Detalle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

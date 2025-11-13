@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">📦 Agregar Nuevo Set</h4>
+            </div>
+            <div class="card-body">
+                {% if error_message %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error_message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nombre del Set *</label>
+                            <input type="text" class="form-control" name="nombre_set" 
+                                   value="{% if form_data %}{{ form_data.nombre_set }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Abreviatura *</label>
+                            <input type="text" class="form-control" name="abreviatura" 
+                                   value="{% if form_data %}{{ form_data.abreviatura }}{% endif %}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Fecha de Lanzamiento *</label>
+                            <input type="date" class="form-control" name="fecha_lanzamiento" 
+                                   value="{% if form_data %}{{ form_data.fecha_lanzamiento }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Número de Cartas *</label>
+                            <input type="number" class="form-control" name="num_cartas_total" 
+                                   value="{% if form_data %}{{ form_data.num_cartas_total }}{% else %}0{% endif %}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Símbolo del Set *</label>
+                            <input type="text" class="form-control" name="simbolo_set" 
+                                   value="{% if form_data %}{{ form_data.simbolo_set }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Idioma *</label>
+                            <input type="text" class="form-control" name="idioma" 
+                                   value="{% if form_data %}{{ form_data.idioma }}{% else %}Español{% endif %}" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="es_reciente" 
+                                   id="es_reciente" {% if form_data.es_reciente %}checked{% endif %}>
+                            <label class="form-check-label" for="es_reciente">
+                                ¿Es un set reciente?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'ver_set' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar Set</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

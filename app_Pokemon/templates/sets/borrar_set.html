@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">🗑️ Borrar Set</h4>
+            </div>
+            <div class="card-body text-center">
+                <h5>¿Estás seguro de que quieres borrar este set?</h5>
+                <p class="lead"><strong>{{ set_expansion.nombre_set }}</strong></p>
+                <p>Abreviatura: {{ set_expansion.abreviatura }}</p>
+                <p>Fecha Lanzamiento: {{ set_expansion.fecha_lanzamiento }}</p>
+                <p>Cartas Totales: {{ set_expansion.num_cartas_total }}</p>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{% url 'ver_set' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Sí, Borrar Set</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

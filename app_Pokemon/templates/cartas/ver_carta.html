@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">🃏 Lista de Cartas</h4>
+        <a href="{% url 'agregar_carta' %}" class="btn btn-light">➕ Agregar Carta</a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Carta</th>
+                        <th>Set</th>
+                        <th>Núm. en Set</th>
+                        <th>Tipo</th>
+                        <th>Rareza</th>
+                        <th>Holo</th>
+                        <th>Condición</th>
+                        <th>Valor USD</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for carta in cartas %}
+                    <tr>
+                        <td>{{ carta.id }}</td>
+                        <td>{{ carta.nombre_carta }}</td>
+                        <td>{{ carta.set_expansion.nombre_set }}</td>
+                        <td>{{ carta.num_carta_en_set }}</td>
+                        <td>{{ carta.tipo_pokemon }}</td>
+                        <td>{{ carta.rareza }}</td>
+                        <td>
+                            {% if carta.es_holo %}
+                                <span class="badge bg-warning">Sí</span>
+                            {% else %}
+                                <span class="badge bg-secondary">No</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ carta.get_condicion_carta_display }}</td>
+                        <td>${{ carta.valor_mercado_usd }}</td>
+                        <td>
+                            <a href="{% url 'actualizar_carta' carta.id %}" class="btn btn-warning btn-sm">✏️ Editar</a>
+                            <a href="{% url 'borrar_carta' carta.id %}" class="btn btn-danger btn-sm">🗑️ Borrar</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="10" class="text-center">No hay cartas registradas</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

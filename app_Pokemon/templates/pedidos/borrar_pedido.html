@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">🗑️ Borrar Pedido</h4>
+            </div>
+            <div class="card-body text-center">
+                <h5>¿Estás seguro de que quieres borrar este pedido?</h5>
+                <p class="lead"><strong>Pedido N°{{ pedido.id }}</strong></p>
+                <p>Cliente: {{ pedido.cliente.nombre_cliente }}</p>
+                <p>Total: ${{ pedido.total_monto }}</p>
+                <p>Estado: 
+                    {% if pedido.estado_pedido == 'P' %}
+                        Pendiente
+                    {% elif pedido.estado_pedido == 'E' %}
+                        Enviado
+                    {% else %}
+                        Entregado
+                    {% endif %}
+                </p>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{% url 'ver_pedido' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Sí, Borrar Pedido</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

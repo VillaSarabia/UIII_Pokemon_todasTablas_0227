@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">🃏 Agregar Nueva Carta</h4>
+            </div>
+            <div class="card-body">
+                {% if error_message %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error_message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Set de Expansión *</label>
+                            <select class="form-select" name="set_expansion" required>
+                                <option value="">Selecciona un set...</option>
+                                {% for set in sets %}
+                                <option value="{{ set.id }}" 
+                                        {% if form_data.set_expansion == set.id|stringformat:"i" %}selected{% endif %}>
+                                    {{ set.nombre_set }} ({{ set.abreviatura }})
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nombre de la Carta *</label>
+                            <input type="text" class="form-control" name="nombre_carta" 
+                                   value="{% if form_data %}{{ form_data.nombre_carta }}{% endif %}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Número en Set *</label>
+                            <input type="text" class="form-control" name="num_carta_en_set" 
+                                   value="{% if form_data %}{{ form_data.num_carta_en_set }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Tipo Pokémon *</label>
+                            <input type="text" class="form-control" name="tipo_pokemon" 
+                                   value="{% if form_data %}{{ form_data.tipo_pokemon }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Rareza *</label>
+                            <input type="text" class="form-control" name="rareza" 
+                                   value="{% if form_data %}{{ form_data.rareza }}{% endif %}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Condición *</label>
+                            <select class="form-select" name="condicion_carta" required>
+                                <option value="NM" {% if form_data.condicion_carta == 'NM' %}selected{% endif %}>Near Mint</option>
+                                <option value="LP" {% if form_data.condicion_carta == 'LP' %}selected{% endif %}>Lightly Played</option>
+                                <option value="MP" {% if form_data.condicion_carta == 'MP' %}selected{% endif %}>Moderately Played</option>
+                                <option value="HP" {% if form_data.condicion_carta == 'HP' %}selected{% endif %}>Heavily Played</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Valor de Mercado (USD) *</label>
+                            <input type="number" step="0.01" class="form-control" name="valor_mercado_usd" 
+                                   value="{% if form_data %}{{ form_data.valor_mercado_usd }}{% else %}0.00{% endif %}" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="es_holo" 
+                                   id="es_holo" {% if form_data.es_holo %}checked{% endif %}>
+                            <label class="form-check-label" for="es_holo">
+                                ¿Es carta Holo?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'ver_carta' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar Carta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

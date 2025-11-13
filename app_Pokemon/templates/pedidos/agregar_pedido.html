@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">🛒 Agregar Nuevo Pedido</h4>
+            </div>
+            <div class="card-body">
+                {% if error_message %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ error_message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endif %}
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- Selección de Cliente -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary">👥 Seleccionar Entrenador</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Entrenador *</label>
+                                <select class="form-select" name="cliente" required>
+                                    <option value="">Selecciona un entrenador...</option>
+                                    {% for cliente in clientes %}
+                                    <option value="{{ cliente.id }}" 
+                                            {% if form_data.cliente == cliente.id|stringformat:"i" %}selected{% endif %}>
+                                        {{ cliente.nombre_cliente }} - {{ cliente.email }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Información del Pedido -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary">📦 Información del Pedido</h5>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Estado del Pedido *</label>
+                            <select class="form-select" name="estado_pedido" required>
+                                <option value="P" {% if form_data.estado_pedido == 'P' %}selected{% endif %}>Pendiente</option>
+                                <option value="E" {% if form_data.estado_pedido == 'E' %}selected{% endif %}>Enviado</option>
+                                <option value="T" {% if form_data.estado_pedido == 'T' %}selected{% endif %}>Entregado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Total Monto *</label>
+                            <input type="number" step="0.01" class="form-control" name="total_monto" 
+                                   value="{% if form_data.total_monto %}{{ form_data.total_monto }}{% else %}0.00{% endif %}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Método de Pago *</label>
+                            <input type="text" class="form-control" name="metodo_pago" 
+                                   value="{% if form_data.metodo_pago %}{{ form_data.metodo_pago }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Código de Rastreo</label>
+                            <input type="text" class="form-control" name="codigo_rastreo" 
+                                   value="{% if form_data.codigo_rastreo %}{{ form_data.codigo_rastreo }}{% endif %}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Fecha Entrega Estimada</label>
+                            <input type="date" class="form-control" name="fecha_entrega_estimada" 
+                                   value="{% if form_data.fecha_entrega_estimada %}{{ form_data.fecha_entrega_estimada }}{% endif %}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" name="es_pago_verificado" 
+                                       id="es_pago_verificado" {% if form_data.es_pago_verificado %}checked{% endif %}>
+                                <label class="form-check-label" for="es_pago_verificado">
+                                    ¿Pago Verificado?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selección de Productos -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h5 class="text-primary">🎁 Productos del Pedido</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Seleccionar Productos</label>
+                                <select class="form-select" name="productos" multiple size="5">
+                                    {% for producto in productos %}
+                                    <option value="{{ producto.id }}" 
+                                            {% if producto.id|stringformat:"i" in form_data.productos %}selected{% endif %}>
+                                        {{ producto.nombre_producto }} - ${{ producto.precio }} (Stock: {{ producto.cantidad_comprada }})
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text">Mantén presionado Ctrl para seleccionar múltiples productos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'ver_pedido' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-info text-white">Crear Pedido</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

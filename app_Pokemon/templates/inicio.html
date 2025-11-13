@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Hero Section -->
+    <div class="row bg-primary text-white py-5 rounded mb-4">
+        <div class="col-md-8 mx-auto text-center">
+            <h1 class="display-4 fw-bold">🎮 Sistema Pokemon</h1>
+            <p class="lead">Sistema de administración para entrenadores y productos Pokemon</p>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="row">
+        <!-- Información del Sistema -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">🏆 Sobre Nuestro Sistema</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Bienvenido al <strong>Sistema de Administración Pokemon</strong>, 
+                        una plataforma diseñada para gestionar eficientemente todo lo relacionado 
+                        con el mundo Pokemon.
+                    </p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fas fa-users me-2 text-primary"></i>
+                            <strong>Gestión de Entrenadores:</strong> Administra clientes y sus datos
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-box me-2 text-warning"></i>
+                            <strong>Control de Productos:</strong> Maneja inventario de items Pokemon
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-shipping-fast me-2 text-info"></i>
+                            <strong>Seguimiento de Pedidos:</strong> Monitorea envíos y entregas
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-chart-line me-2 text-success"></i>
+                            <strong>Reportes y Estadísticas:</strong> Analiza el rendimiento del negocio
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Imagen Pokemon -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0">🌟 Mundo Pokemon</h4>
+                </div>
+                <div class="card-body text-center">
+                    <img src="https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Mundo Pokemon" class="img-fluid rounded mb-3">
+                    <p class="card-text">
+                        Explora y gestiona el fascinante universo Pokemon con nuestra 
+                        herramienta especializada. Desde Pikachu hasta Charizard, 
+                        tenemos todo cubierto.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Características Rápidas -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">🚀 Accesos Rápidos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'ver_cliente' %}" class="text-decoration-none">
+                                <div class="card bg-primary text-white h-100">
+                                    <div class="card-body">
+                                        <i class="fas fa-users fa-3x mb-3"></i>
+                                        <h5>Gestionar Entrenadores</h5>
+                                        <p class="small">Administra clientes del sistema</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'ver_producto' %}" class="text-decoration-none">
+                                <div class="card bg-success text-white h-100">
+                                    <div class="card-body">
+                                        <i class="fas fa-box fa-3x mb-3"></i>
+                                        <h5>Ver Productos</h5>
+                                        <p class="small">Consulta el inventario disponible</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card bg-warning text-white h-100">
+                                <div class="card-body">
+                                    <i class="fas fa-chart-bar fa-3x mb-3"></i>
+                                    <h5>Estadísticas</h5>
+                                    <p class="small">Próximamente: Reportes del sistema</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Información Adicional -->
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-shield-alt fa-2x text-primary mb-3"></i>
+                    <h5>Sistema Seguro</h5>
+                    <p class="small">Protección de datos y transacciones seguras</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-mobile-alt fa-2x text-success mb-3"></i>
+                    <h5>Responsivo</h5>
+                    <p class="small">Accede desde cualquier dispositivo</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-sync fa-2x text-info mb-3"></i>
+                    <h5>Actualizaciones</h5>
+                    <p class="small">Mejoras constantes del sistema</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

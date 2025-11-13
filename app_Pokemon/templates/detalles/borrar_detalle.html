@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">🗑️ Borrar Detalle</h4>
+            </div>
+            <div class="card-body text-center">
+                <h5>¿Estás seguro de que quieres borrar este detalle?</h5>
+                <p class="lead"><strong>Detalle #{{ detalle.id }}</strong></p>
+                <p>Pedido: #{{ detalle.pedido.id }}</p>
+                <p>Producto: {{ detalle.producto.nombre_producto }}</p>
+                <p>Cantidad: {{ detalle.cantidad }}</p>
+                <p>Precio: ${{ detalle.precio_unitario }}</p>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="d

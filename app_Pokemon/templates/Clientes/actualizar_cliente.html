@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h4 class="mb-0">✏️ Actualizar Cliente</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'realizar_actualizacion_cliente' cliente.id %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nombre del Cliente</label>
+                            <input type="text" class="form-control" name="nombre_cliente" 
+                                   value="{{ cliente.nombre_cliente }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" 
+                                   value="{{ cliente.email }}" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" class="form-control" name="direccion" 
+                               value="{{ cliente.direccion }}" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" name="telefono" 
+                                   value="{{ cliente.telefono }}">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Puntos Lealtad</label>
+                            <input type="number" class="form-control" name="puntos_lealtad" 
+                                   value="{{ cliente.puntos_lealtad }}">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Tipo Entrenador</label>
+                            <input type="text" class="form-control" name="tipo_entrenador" 
+                                   value="{{ cliente.tipo_entrenador }}" required>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'ver_cliente' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-warning">Actualizar Cliente</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

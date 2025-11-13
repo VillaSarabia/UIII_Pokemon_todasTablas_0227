@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'inicio_Pokemon' %}">
+            <i class="fas fa-dragon me-2"></i> Sistema Pokemon
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'inicio_Pokemon' %}">
+                        <i class="fas fa-home me-1"></i> Inicio
+                    </a>
+                </li>
+                
+                <!-- Menú Entrenadores -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-users me-1"></i> Entrenadores
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_cliente' %}">Agregar Entrenador</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_cliente' %}">Ver Entrenadores</a></li>
+                    </ul>
+                </li>
+                
+                <!-- Menú Productos -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-box me-1"></i> Productos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_producto' %}">Agregar Producto</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_producto' %}">Ver Productos</a></li>
+                    </ul>
+                </li>
+                
+                <!-- Menú Pedidos -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-shopping-cart me-1"></i> Pedidos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_pedido' %}">Agregar Pedido</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_pedido' %}">Ver Pedidos</a></li>
+                    </ul>
+                </li>
+                
+                <!-- 👇 NUEVOS MENÚS AGREGADOS -->
+                
+                <!-- Menú Sets -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-layer-group me-1"></i> Sets
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_set' %}">Agregar Set</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_set' %}">Ver Sets</a></li>
+                    </ul>
+                </li>
+                
+                <!-- Menú Cartas -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-id-card me-1"></i> Cartas
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_carta' %}">Agregar Carta</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_carta' %}">Ver Cartas</a></li>
+                    </ul>
+                </li>
+                
+                <!-- Menú Detalles -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-list-alt me-1"></i> Detalles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'agregar_detalle' %}">Agregar Detalle</a></li>
+                        <li><a class="dropdown-item" href="{% url 'ver_detalle' %}">Ver Detalles</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

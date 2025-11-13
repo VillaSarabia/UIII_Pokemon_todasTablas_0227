@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h4 class="mb-0">✏️ Actualizar Detalle</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'realizar_actualizacion_detalle' detalle.id %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Pedido *</label>
+                            <select class="form-select" name="pedido" required>
+                                {% for pedido in pedidos %}
+                                <option value="{{ pedido.id }}" 
+                                        {% if pedido.id == detalle.pedido.id %}selected{% endif %}>
+                                    Pedido #{{ pedido.id }} - {{ pedido.cliente.nombre_cliente }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Producto *</label>
+                            <select class="form-select" name="producto" required>
+                                {% for producto in productos %}
+                                <option value="{{ producto.id }}" 
+                                        {% if producto.id == detalle.producto.id %}selected{% endif %}>
+                                    {{ producto.nombre_producto }} - ${{ producto.precio }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Cantidad *</label>
+                            <input type="number" class="form-control" name="cantidad" 
+                                   value="{{ detalle.cantidad }}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Precio Unitario *</label>
+                            <input type="number" step="0.01" class="form-control" name="precio_unitario" 
+                                   value="{{ detalle.precio_unitario }}" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Descuento Aplicado (%)</label>
+                            <input type="number" step="0.01" class="form-control" name="descuento_aplicado" 
+                                   value="{{ detalle.descuento_aplicado }}">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Observación del Item</label>
+                        <textarea class="form-control" name="observacion_item" rows="3">{{ detalle.observacion_item }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="es_item_digital" 
+                                   id="es_item_digital" {% if detalle.es_item_digital %}checked{% endif %}>
+                            <label class="form-check-label" for="es_item_digital">
+                                ¿Es item digital?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'ver_detalle' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-warning">Actualizar Detalle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

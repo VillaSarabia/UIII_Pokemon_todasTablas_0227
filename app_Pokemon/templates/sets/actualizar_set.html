@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h4 class="mb-0">✏️ Actualizar Set</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{% url 'realizar_actualizacion_set' set_expansion.id %}">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nombre del Set *</label>
+                            <input type="text" class="form-control" name="nombre_set" 
+                                   value="{{ set_expansion.nombre_set }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Abreviatura *</label>
+                            <input type="text" class="form-control" name="abreviatura" 
+                                   value="{{ set_expansion.abreviatura }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Fecha de Lanzamiento *</label>
+                            <input type="date" class="form-control" name="fecha_lanzamiento" 
+                                   value="{{ set_expansion.fecha_lanzamiento|date:'Y-m-d' }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Número de Cartas *</label>
+                            <input type="number" class="form-control" name="num_cartas_total" 
+                                   value="{{ set_expansion.num_cartas_total }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Símbolo del Set *</label>
+                            <input type="text" class="form-control" name="simbolo_set" 
+                                   value="{{ set_expansion.simbolo_set }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Idioma *</label>
+                            <input type="text" class="form-control" name="idioma" 
+                                   value="{{ set_expansion.idioma }}" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="es_reciente" 
+                                   id="es_reciente" {% if set_expansion.es_reciente %}checked{% endif %}>
+                            <label class="form-check-label" for="es_reciente">
+                                ¿Es un set reciente?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'ver_set' %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-warning">Actualizar Set</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
